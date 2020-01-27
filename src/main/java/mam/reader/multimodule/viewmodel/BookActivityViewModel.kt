@@ -39,7 +39,6 @@ class BookActivityViewModel(api: Api) : ViewModel() {
                 // nambahin data
                 books.value!!.data!!.add(0, book.data!!)
                 books.postValue(books.value)
-
             }
         }
     }

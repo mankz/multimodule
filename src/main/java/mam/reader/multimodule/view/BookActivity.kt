@@ -1,9 +1,11 @@
 package mam.reader.multimodule.view
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +21,8 @@ import mam.reader.multimodule.model.BookData
 import mam.reader.multimodule.viewmodel.BookActivityViewModel
 import mam.reader.multimodule.viewmodel.MyViewModelFactory
 
-class BookActivity : AppCompatActivity (){
+class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
+
 
     lateinit var bookActivityVM : BookActivityViewModel
 
@@ -66,5 +69,24 @@ class BookActivity : AppCompatActivity (){
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onBookClicked(bookData: BookData) {
+
+        val items = arrayOf("Edit", "Delete")
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(bookData.attributes!!.title)
+        builder.setItems(items, object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                when(which){
+                    0 -> {
+                    }
+
+                    1 -> {
+                    }
+                }
+            }
+
+        })
+        builder.create().show()
+    }
 
 }

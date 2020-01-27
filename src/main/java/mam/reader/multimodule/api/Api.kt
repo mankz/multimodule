@@ -39,5 +39,9 @@ class Api (context : Context): BaseApi(context){
         it.resume(getApiService(params).createBook(data))
     }
 
+    suspend fun deleteBook(params: RequestInterceptor?) = suspendCoroutine<String> {
+        it.resume(getApiService(params).deleteBook())
+    }
+
 
 }

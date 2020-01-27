@@ -19,4 +19,9 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST(Api.BOOKS)
     fun createBook(@Body data : HashMap<String,BookData>) : Book
+
+
+    @Headers("Content-Type: application/json")
+    @DELETE("${Api.BOOKS}/{book_id}")
+    fun deleteBook() : String
 }
