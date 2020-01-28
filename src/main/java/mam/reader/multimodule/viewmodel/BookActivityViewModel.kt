@@ -27,7 +27,7 @@ class BookActivityViewModel(api: Api) : ViewModel() {
     fun loadBooks() {
         log("loadBooks")
         viewModelScope.launch {
-            books.value = repository.getBooks()
+            books.postValue(repository.getBooks())
         }
     }
 
@@ -40,6 +40,16 @@ class BookActivityViewModel(api: Api) : ViewModel() {
                 books.value!!.data!!.add(0, book.data!!)
                 books.postValue(books.value)
             }
+        }
+    }
+
+    fun deleteBook(bookId: String) {
+        log("deleteBook")
+        viewModelScope.launch {
+            val response = repository.deleteBook(bookId)
+            log("deleteBook ${response.toString()}")
+
+            loadBooks()
         }
     }
 }

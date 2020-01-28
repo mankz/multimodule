@@ -29,6 +29,22 @@ class BookRepository(var api: Api) {
         return request.await()
     }
 
+    suspend fun deleteBook(bookId : String) : String? {
+        val request = GlobalScope.async {
+            api.deleteBook(RequestInterceptor {
+//                it.addPathParam("book_id", "f605864a-5e06-45d3-a01b-9507e1fa060a")
+                it.addPathParam("book_id", bookId)
+            })
+
+        }
+        try {
+            return request.await()
+        } catch(e : Exception){
+            e.printStackTrace()
+        }
+        return null
+    }
+
     suspend fun createBook(
         title: String,
         readerId: String,

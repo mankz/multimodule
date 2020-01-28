@@ -81,6 +81,7 @@ class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
                     }
 
                     1 -> {
+                        bookActivityVM.deleteBook(bookData.id!!)
                     }
                 }
             }
