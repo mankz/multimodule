@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.play.core.splitinstall.SplitInstallManager
 import kotlinx.android.synthetic.main.book_activity.*
 import mam.reader.multimodule.MyApplication
 import mam.reader.multimodule.R
@@ -25,6 +26,7 @@ class BookActivity : AppCompatActivity(), BookAdapter.BookAdapterInterface {
 
 
     lateinit var bookActivityVM: BookActivityViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
