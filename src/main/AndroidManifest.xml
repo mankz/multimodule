@@ -23,9 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.BookActivity"/>
-        <activity android:name=".view.UserActivity"/>
-        <activity android:name=".view.ManageBookActivity"/>
-    </application>
+     </application>
 
 </manifest>
