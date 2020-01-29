@@ -10,7 +10,7 @@ interface ApiService {
 
     @Headers("Content-Type: application/json")
     @GET(Api.BOOKS)
-    fun getBooks() : Books
+    fun getBooks(@Query("page[limit]") limit : Int, @Query("page[offset]") offset : Int) : Books
 
     @Headers("Content-Type: application/json")
     @GET("${Api.BOOKS}/{book_id}")

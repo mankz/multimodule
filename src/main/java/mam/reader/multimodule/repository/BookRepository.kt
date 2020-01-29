@@ -32,7 +32,6 @@ class BookRepository(var api: Api) {
     suspend fun deleteBook(bookId : String) : String? {
         val request = GlobalScope.async {
             api.deleteBook(RequestInterceptor {
-//                it.addPathParam("book_id", "f605864a-5e06-45d3-a01b-9507e1fa060a")
                 it.addPathParam("book_id", bookId)
             })
 
@@ -55,7 +54,7 @@ class BookRepository(var api: Api) {
         var data = HashMap<String, BookData>()
         var bookData = BookData(attrs, null, null, null, "Book")
 
-        data.put("data", bookData)
+        data["data"] = bookData
         val request = GlobalScope.async {
             api.createBook(null, data)
         }

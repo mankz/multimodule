@@ -21,23 +21,23 @@ import mam.reader.multimodule.model.BookData
 import mam.reader.multimodule.viewmodel.BookActivityViewModel
 import mam.reader.multimodule.viewmodel.MyViewModelFactory
 
-class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
+class BookActivity : AppCompatActivity(), BookAdapter.BookAdapterInterface {
 
 
-    lateinit var bookActivityVM : BookActivityViewModel
+    lateinit var bookActivityVM: BookActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.book_activity)
 
         bookActivityVM = ViewModelProvider(
-           this, MyViewModelFactory(Api(MyApplication.getContext()))
-       ).get(BookActivityViewModel::class.java)
+            this, MyViewModelFactory(Api(MyApplication.getContext()))
+        ).get(BookActivityViewModel::class.java)
 
-        val layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_books.layoutManager = layoutManager
 
-        bookActivityVM.getBooks().observe(this, Observer{
+        bookActivityVM.getBooks().observe(this, Observer {
             val adapter = BookAdapter(this, bookActivityVM.getBooks().value!!.data!!)
             rv_books.adapter = adapter
         })
@@ -52,7 +52,7 @@ class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == 123 && resultCode == RESULT_OK){
+        if (requestCode == 123 && resultCode == RESULT_OK) {
             val title = data!!.getStringExtra("title")
             val readerId = data!!.getStringExtra("reader_id")
             val authorId = data!!.getStringExtra("author_id")
@@ -61,11 +61,11 @@ class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
         }
     }
 
-    fun log(log : String){
+    fun log(log: String) {
         Log.d(this.javaClass.canonicalName, log)
     }
 
-    fun toast(toast : String){
+    fun toast(toast: String) {
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
 
@@ -74,19 +74,17 @@ class BookActivity : AppCompatActivity (), BookAdapter.BookAdapterInterface{
         val items = arrayOf("Edit", "Delete")
         val builder = AlertDialog.Builder(this)
         builder.setTitle(bookData.attributes!!.title)
-        builder.setItems(items, object : DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                when(which){
-                    0 -> {
-                    }
+        builder.setItems(items) { dialog, which ->
+            when (which) {
+                0 -> {
+                    toast("Coming Soon")
+                }
 
-                    1 -> {
-                        bookActivityVM.deleteBook(bookData.id!!)
-                    }
+                1 -> {
+                    bookActivityVM.deleteBook(bookData.id!!)
                 }
             }
-
-        })
+        }
         builder.create().show()
     }
 

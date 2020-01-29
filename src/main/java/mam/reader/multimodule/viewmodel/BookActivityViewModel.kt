@@ -14,7 +14,7 @@ class BookActivityViewModel(api: Api) : ViewModel() {
 
     private val repository = BookRepository(api)
 
-    fun log(log: String) {
+    private fun log(log: String) {
         Log.d("BOOK REPOSITORY", log)
     }
 

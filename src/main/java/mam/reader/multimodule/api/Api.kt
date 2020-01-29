@@ -17,7 +17,7 @@ class Api (context : Context): BaseApi(context){
         const val BOOKS =  "/Books"
     }
 
-    fun getApiService(params: RequestInterceptor?): ApiService {
+    private fun getApiService(params: RequestInterceptor?): ApiService {
         return mRestHelper.buildRestadapter(
             BASE_URL
             , 3000L
@@ -32,7 +32,7 @@ class Api (context : Context): BaseApi(context){
     }
 
     suspend fun getBooks(params: RequestInterceptor?) = suspendCoroutine<Books> {
-        it.resume(getApiService(params).getBooks())
+        it.resume(getApiService(params).getBooks(10, 0))
     }
 
     suspend fun createBook(params: RequestInterceptor?, data : HashMap<String, BookData>) = suspendCoroutine<Book> {
