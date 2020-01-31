@@ -25,12 +25,6 @@ android {
 
     dynamicFeatures = [":books", ":people"]
 
-
-
-
-    
-
-
 }
 
 dependencies {

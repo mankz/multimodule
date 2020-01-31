@@ -2,12 +2,14 @@ package mam.reader.multimodule.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 
 import kotlinx.android.synthetic.main.activity_main.*
+import mam.reader.multimodule.BuildConfig
 import mam.reader.multimodule.R
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +24,10 @@ class MainActivity : AppCompatActivity() {
 
 
         splitInstallManager = SplitInstallManagerFactory.create(this)
-
+        val modules  = splitInstallManager.installedModules
+        modules.forEach {
+            Log.d("MODULE", it)
+        }
         btnBook.setOnClickListener {
             launchBook()
         }
@@ -33,18 +38,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun launchBook() {
+    private fun launchBook() {
 
         if (splitInstallManager.installedModules.contains("books")) {
-            startActivity(Intent(
-                "com.example.books.view.BookActivity"))
+            var i = Intent()
+            i.setClassName(BuildConfig.APPLICATION_ID, "com.example.books.view.BookActivity");
+            startActivity(i)
         } else {
             toast("Books belum terinstall")
         }
     }
 
 
-    fun launchPeople() {
+    private fun launchPeople() {
 
         if (splitInstallManager.installedModules.contains("people")) {
             startActivity(Intent(
