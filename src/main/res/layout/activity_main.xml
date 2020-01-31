@@ -6,27 +6,71 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
-
-    <Button
-        android:id="@+id/btnBook"
+    <TextView
+        android:id="@+id/titleBooks"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:padding="12dp"
-        android:text="Informasi Buku"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Books" android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnUser"
+    <LinearLayout
+        android:id="@+id/books"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:text="Informasi User"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBook" />
+        app:layout_constraintTop_toBottomOf="@id/titleBooks">
+
+        <Button
+            android:id="@+id/btnBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Lihat" />
+
+        <Button
+            android:id="@+id/btnUninstallBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Uninstall" />
+
+    </LinearLayout>
+
+    <TextView android:id="@+id/titlePeople" android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="People"
+        app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/books"/>
+    <LinearLayout
+        android:id="@+id/people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlePeople">
+
+        <Button
+            android:id="@+id/btnPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Lihat" />
+
+        <Button
+            android:id="@+id/btnUninstallPeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="Uninstall" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

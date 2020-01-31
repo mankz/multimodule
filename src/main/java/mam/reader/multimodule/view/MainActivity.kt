@@ -3,6 +3,7 @@ package mam.reader.multimodule.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import com.google.android.play.core.splitinstall.SplitInstallManager
@@ -24,15 +25,30 @@ class MainActivity : AppCompatActivity() {
 
 
         splitInstallManager = SplitInstallManagerFactory.create(this)
-        val modules  = splitInstallManager.installedModules
-        modules.forEach {
-            Log.d("MODULE", it)
+
+        if (splitInstallManager.installedModules.contains("books")) {
+            btnBook.text = "Lihat"
+            btnUninstallBook.visibility = View.VISIBLE
+
+        }  else {
+            btnBook.text = "Install"
+            btnUninstallBook.visibility = View.GONE
         }
+
+        if (splitInstallManager.installedModules.contains("people")) {
+            btnPeople.text = "Lihat"
+            btnUninstallPeople.visibility = View.VISIBLE
+        } else {
+            btnPeople.text = "Install"
+            btnUninstallPeople.visibility = View.GONE
+        }
+
+
         btnBook.setOnClickListener {
             launchBook()
         }
 
-        btnUser.setOnClickListener {
+        btnPeople.setOnClickListener {
             launchPeople()
         }
 
