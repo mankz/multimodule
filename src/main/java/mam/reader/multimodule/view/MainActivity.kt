@@ -6,8 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
-import com.google.android.play.core.splitinstall.SplitInstallManager
-import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import mam.reader.multimodule.BuildConfig
@@ -26,11 +25,42 @@ class MainActivity : AppCompatActivity() {
 
         splitInstallManager = SplitInstallManagerFactory.create(this)
 
+        initView()
+
+        btnBook.setOnClickListener {
+
+            launchBook()
+        }
+
+        btnUninstallBook.setOnClickListener {
+            splitInstallManager.deferredUninstall(mutableListOf("books")).addOnSuccessListener {
+                initView()
+            }.addOnFailureListener {
+                toast("Gagal Menguninstal Fitur Books")
+            }
+        }
+
+        btnPeople.setOnClickListener {
+            launchPeople()
+        }
+
+        btnUninstallPeople.setOnClickListener {
+            splitInstallManager.deferredUninstall(mutableListOf("people")).addOnSuccessListener {
+                initView()
+            }.addOnFailureListener {
+                toast("Gagal Menguninstal Fitur People")
+            }
+        }
+
+
+    }
+
+    private fun initView() {
         if (splitInstallManager.installedModules.contains("books")) {
             btnBook.text = "Lihat"
             btnUninstallBook.visibility = View.VISIBLE
 
-        }  else {
+        } else {
             btnBook.text = "Install"
             btnUninstallBook.visibility = View.GONE
         }
@@ -43,15 +73,6 @@ class MainActivity : AppCompatActivity() {
             btnUninstallPeople.visibility = View.GONE
         }
 
-
-        btnBook.setOnClickListener {
-            launchBook()
-        }
-
-        btnPeople.setOnClickListener {
-            launchPeople()
-        }
-
     }
 
     private fun launchBook() {
@@ -61,7 +82,12 @@ class MainActivity : AppCompatActivity() {
             i.setClassName(BuildConfig.APPLICATION_ID, "com.example.books.view.BookActivity");
             startActivity(i)
         } else {
-            toast("Books belum terinstall")
+            val request = SplitInstallRequest.newBuilder().addModule("books").build()
+            splitInstallManager.startInstall(request).addOnSuccessListener {
+                initView()
+            }.addOnFailureListener {
+                toast("Gagal Menginstal Fitur Books")
+            }
         }
     }
 
@@ -69,14 +95,24 @@ class MainActivity : AppCompatActivity() {
     private fun launchPeople() {
 
         if (splitInstallManager.installedModules.contains("people")) {
-            startActivity(Intent(
-                "com.example.people.PeopleActivity"))
+            startActivity(
+                Intent(
+                    "com.example.people.PeopleActivity"
+                )
+            )
         } else {
-            toast("People belum terinstall")
+            val request = SplitInstallRequest.newBuilder().addModule("people").build()
+            splitInstallManager.startInstall(request).addOnSuccessListener {
+                initView()
+            }.addOnFailureListener {
+                toast("Gagal Menginstal Fitur People")
+            }
         }
     }
 
-    fun toast(toast : String){
+    fun toast(toast: String) {
         Toast.makeText(this, toast, Toast.LENGTH_SHORT).show()
     }
+
+
 }
